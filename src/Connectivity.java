@@ -29,8 +29,8 @@ public class Connectivity
     ArrayList<String> userNames = new ArrayList<>();
 
     //Enter the Database name to select from below
-    String TableName = "SELECT * FROM User";
-    String Display = "SELECT `PK_userID`,`firstName`, `lastName`,`userName` FROM User";
+    String TableName = "SELECT * FROM userData";
+    String Display = "SELECT `PK_userID`,`firstName`, `lastName`,`userName` FROM userData";
     
     //need a Connection object here
     Connection dbConnection;
@@ -66,19 +66,20 @@ public class Connectivity
         return this.userNames;
     }
     //you have to connect to the database before using this method
-    public boolean addNewUser(String f,String l,String e,String p,String d,String r,String log){
+    public boolean addNewUser(String f,String l,String e,String p,String u, int pr, int ca, int fa){
        /*
         f-> first name
         l-> last name
         e-> email
         p-> password
-        d-> department
-        r-> role
-        log-> login id
+        u-> userName
+        pr -> protein
+        ca-> carb
+        fa-> fat
         */
         boolean success = false;
         Statement statement ;
-        String query = "INSERT INTO `User` (`firstName`, `lastName`,`userName`,`password`,`role`,`department`,`email`) VALUES ('"+f+"','"+l+"','"+log+"','"+p+"','"+r+"','"+d+"','"+e+"');";
+        String query = "INSERT INTO `userData` (`firstName`, `lastName`,`userName`,`password`,`email`,`protein`,`carbohydrate`,`fat`) VALUES ('"+f+"','"+l+"','"+u+"','"+p+"','"+e+"','"+pr+"','"+ca+"','"+fa+"');";
                  
         try{
             statement = this.dbConnection.createStatement();
@@ -148,11 +149,11 @@ public class Connectivity
         String columnName="";
         
         switch(valFlag){
-            case "Email": query = "SELECT email FROM User";
+            case "Email": query = "SELECT email FROM userData";
                           columnName = "email";
                           break;
                 
-            case "LoginID": query = "Select userName FROM User";
+            case "LoginID": query = "Select userName FROM userData";
                             columnName = "userName";
                             break;
                             
@@ -192,7 +193,7 @@ public class Connectivity
         boolean exists = false;
         //get all the values in the userName colum of the User table
         if(this.ConnectDB()){
-            String query = "SELECT password FROM User WHERE userName = '"
+            String query = "SELECT password FROM userData WHERE userName = '"
                     + userName + "';";
             try{
                 Statement  st = this.dbConnection.createStatement();
@@ -221,7 +222,7 @@ public class Connectivity
         boolean isEmp = false;
         //get all the values in the userName colum of the User table
         if(this.ConnectDB()){
-            String query = "SELECT role FROM User WHERE userName = '"
+            String query = "SELECT role FROM userData WHERE userName = '"
                     + userName + "';";
             try{
                 Statement  st = this.dbConnection.createStatement();
@@ -253,7 +254,7 @@ public class Connectivity
         boolean success = false;
         Statement statement;
 //        String query = "UPDATE `User` SET `lastName` = '" + f + "' WHERE `PK_userID` = '" + 93 + "'";
-        String query = "UPDATE `User` SET `lastName` = '" + f + "' WHERE `firstName` = '" + f + "'";
+        String query = "UPDATE `userData` SET `lastName` = '" + f + "' WHERE `firstName` = '" + f + "'";
 
 
 
@@ -320,7 +321,7 @@ public class Connectivity
         
         boolean success = false;
         Statement statement;
-        String query = "DELETE FROM `User` WHERE `firstName` = '" + f + "'";
+        String query = "DELETE FROM `userData` WHERE `firstName` = '" + f + "'";
         
 
         try {
@@ -454,7 +455,7 @@ public class Connectivity
         String userpassword = "";
         //get all the values in the email colum of the User table
         if(this.ConnectDB()){
-            String query = "SELECT password FROM User WHERE email = '"
+            String query = "SELECT password FROM userData WHERE email = '"
                     + email + "';";
             try{
                 Statement  st = this.dbConnection.createStatement();
@@ -539,7 +540,7 @@ public class Connectivity
         int userID= 0;
        
         if(this.ConnectDB()){
-            String query = "SELECT PK_userID FROM User WHERE" 
+            String query = "SELECT PK_userID FROM userData WHERE" 
                 + " userName = '" + login + "';";
             
             try{
@@ -572,7 +573,7 @@ public class Connectivity
         
        
         if(this.ConnectDB()){
-            String queryName = "SELECT department FROM User WHERE" 
+            String queryName = "SELECT department FROM userData WHERE" 
                 + " userName = '" + login + "';";
             
                     
@@ -655,7 +656,7 @@ public class Connectivity
          if(this.ConnectDB()){
              //the connection is good
              //get all the users that are not locked out
-             String query = "Select userName FROM User WHERE locked=0";
+             String query = "Select userName FROM userData WHERE locked=0";
              
              try{
                  Statement st = this.dbConnection.createStatement();
@@ -696,7 +697,7 @@ public class Connectivity
          String[] infoArray = new String[5];
          if(this.ConnectDB()){
              //query selects all user information except for the password
-             String query = "SELECT firstName,lastName,role,department,email FROM User WHere userName = '"+userName+"'";
+             String query = "SELECT firstName,lastName,email FROM userData WHere userName = '"+userName+"'";
              try{
                  Statement st = this.dbConnection.createStatement();
                  ResultSet r = st.executeQuery(query);
@@ -837,7 +838,7 @@ public class Connectivity
          if(this.ConnectDB()){
              //we are connected so we need to query the column where
              //build the query
-             String query = String.format("SELECT locked FROM User WHERE userName=\'%s\'",user);
+             String query = String.format("SELECT locked FROM userData WHERE userName=\'%s\'",user);
              
              try{
                  //create the statement
