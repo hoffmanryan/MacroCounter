@@ -66,7 +66,7 @@ public class Connectivity
         return this.userNames;
     }
     //you have to connect to the database before using this method
-    public boolean addNewUser(String f,String l,String e,String p,String u, int pr, int ca, int fa){
+    public boolean addNewUser(String f,String l,String e,String p,String u, String pr, String ca, String fa){
        /*
         f-> first name
         l-> last name
@@ -137,7 +137,7 @@ public class Connectivity
     }
     
     /*
-    This function will be handy to find out if an email or a userName already
+    find out if an email or a userName already
     exits in the database.  To check for the username, just call the function and 
     pass the parameter userName and second parameter "LoginID".  For email, pass
     the email and then pass the second flag, which is "email"
@@ -149,8 +149,8 @@ public class Connectivity
         String columnName="";
         
         switch(valFlag){
-            case "Email": query = "SELECT email FROM userData";
-                          columnName = "email";
+            case "Email": query = "SELECT Email FROM userData";
+                          columnName = "Email";
                           break;
                 
             case "LoginID": query = "Select userName FROM userData";

@@ -21,9 +21,9 @@ public class NewUser {
     private String email;
     private String password;
     private String userName;
-    private int protein;
-    private int carb;
-    private int fat;
+    private String proteinInput;
+    private String carbInput;
+    private String fatInput;
     
  
 
@@ -32,14 +32,16 @@ public class NewUser {
     
     //default constructor
     public NewUser() {
-        this("", "", "");
+        this("", "", "", "", "", "");
     }
 
-    public NewUser(String firstName, String lastName, String email) {
+    public NewUser(String firstName, String lastName, String email,String proteinInput, String carbInput, String fatInput) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        
+        this.proteinInput = proteinInput;
+        this.carbInput = carbInput;
+        this.fatInput = fatInput;
         
 
     }
@@ -65,16 +67,16 @@ public class NewUser {
         this.password = password;
     }
     
-    public void setProtein(int protein) {
-        this.protein = protein;
+    public void setProtein(String protein) {
+        this.proteinInput = protein;
     }
 
-    public void setCarb(int carb) {
-        this.carb = carb;
+    public void setCarb(String carb) {
+        this.carbInput = carb;
     }
     
-    public void setFat(int fat){
-        this.fat = fat;
+    public void setFat(String fat){
+        this.fatInput = fat;
     }
     //function to add the new user information to the database
     public boolean addUserToDatabase() {
@@ -85,9 +87,9 @@ public class NewUser {
         String email = this.getEmail();
         String pwrd = this.getPassword();
         String uName = this.getuserName();
-        int prot = this.getProtein();
-        int carb = this.getCarb();
-        int fatt = this.getFat();
+        String prot = this.getProtein();
+        String carb = this.getCarb();
+        String fatt = this.getFat();
        
         
         //make an array of all this data and send it to the Connectivity class instance
@@ -135,16 +137,16 @@ public class NewUser {
         return this.userName;
     }
     
-     public int getProtein() {
-       return this.protein;
+     public String getProtein() {
+       return this.proteinInput;
     }
 
-    public int getCarb() {
-       return this.carb;
+    public String getCarb() {
+       return this.carbInput;
     }
     
-    public int getFat(){
-       return this.fat;
+    public String getFat(){
+       return this.fatInput;
     }
     
     private void printReport() {

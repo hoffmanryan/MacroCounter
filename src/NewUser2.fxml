@@ -6,22 +6,27 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="439.0" prefWidth="526.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NewUser2Controller">
+<AnchorPane id="AnchorPane" prefHeight="393.0" prefWidth="473.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NewUser2Controller">
    <children>
-      <Text layoutX="186.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Macro SetUp">
+      <JFXTextField fx:id="loginIDinput" layoutX="176.0" layoutY="122.0" />
+      <JFXTextField fx:id="loginIDinputConfirmation" layoutX="176.0" layoutY="167.0" />
+      <Text layoutX="141.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create User Name">
          <font>
-            <Font size="25.0" />
+            <Font size="22.0" />
          </font>
       </Text>
-      <JFXTextField fx:id="proteinInput" layoutX="225.0" layoutY="158.0" prefHeight="26.0" prefWidth="201.0" promptText="Protein" />
-      <JFXTextField fx:id="carbInput" layoutX="225.0" layoutY="228.0" prefHeight="26.0" prefWidth="201.0" promptText="Carbohydrates" />
-      <JFXTextField fx:id="fatInput" layoutX="225.0" layoutY="308.0" prefHeight="26.0" prefWidth="201.0" promptText="Fat" />
-      <Text layoutX="131.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter the macronutrients that you want to follow" />
-      <Text layoutX="64.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Protein in Grams:" />
-      <Text layoutX="27.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Carbohydrates in Grams:" />
-      <Text layoutX="75.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Fat in Grams:" />
-      <Button fx:id="next" layoutX="117.0" layoutY="377.0" mnemonicParsing="false" onAction="#submitClicked" text="Continue" />
-      <Button fx:id="clear" layoutX="225.0" layoutY="377.0" mnemonicParsing="false" onAction="#clearClicked" text="Clear" />
-      <Button fx:id="back" layoutX="326.0" layoutY="377.0" mnemonicParsing="false" onAction="#backToNewUserScene1" text="Back" />
+      <Text layoutX="83.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Name" />
+      <Text layoutX="43.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm Password" />
+      <Text layoutX="37.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm User Name" />
+      <Text layoutX="70.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+      <JFXTextField fx:id="passwordInput" layoutX="177.0" layoutY="212.0" />
+      <JFXTextField fx:id="passwordInputConfirmation" layoutX="177.0" layoutY="259.0" />
+      <Button layoutX="120.0" layoutY="339.0" mnemonicParsing="false" onAction="#submitClicked" text="Submit" />
+      <Button layoutX="226.0" layoutY="339.0" mnemonicParsing="false" onAction="#clearClicked" text="Clear" />
+      <Button layoutX="332.0" layoutY="339.0" mnemonicParsing="false" onAction="#backToNewUser1" text="Back" />
+      <Text fx:id="loginIDInputFeedback" layoutX="332.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text layoutX="332.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text fx:id="passwordInputFeedback" layoutX="332.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text fx:id="loginIdInput" layoutX="332.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
    </children>
 </AnchorPane>

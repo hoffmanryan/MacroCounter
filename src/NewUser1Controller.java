@@ -48,6 +48,9 @@ public class NewUser1Controller implements Initializable {
     private JFXButton clearButton;
     @FXML
     private JFXButton backToLogin;
+    @FXML private JFXTextField proteinInput;
+    @FXML private JFXTextField carbInput;
+    @FXML private JFXTextField fatInput;
     
     //feedback fields
     private ArrayList<Text> feedbackGroup = new ArrayList<>();
@@ -64,7 +67,9 @@ public class NewUser1Controller implements Initializable {
         this.fieldGroup.add(lastName);
         this.fieldGroup.add(email);
         this.fieldGroup.add(emailConfirmInput);
-        
+        this.fieldGroup.add(proteinInput);
+        this.fieldGroup.add(carbInput);
+        this.fieldGroup.add(fatInput);
         
         //add all feedback labels to the arraylist
         this.feedbackGroup.add(firstNameFeedback);
@@ -154,7 +159,9 @@ public class NewUser1Controller implements Initializable {
         lastName.clear();
         email.clear();
         emailConfirmInput.clear();
-      
+        proteinInput.clear();
+        carbInput.clear();
+        fatInput.clear();
         
     }
 
@@ -165,7 +172,8 @@ public class NewUser1Controller implements Initializable {
         //validate the names
         dataValidator.validateName(this.firstName.getText(),this.firstNameFeedback);
         dataValidator.validateName(this.lastName.getText(), this.lastNameFeedback);
-        dataValidator.validateEmails(this.email.getText(), this.emailConfirmInput.getText(), this.emailFeedback);
+        dataValidator.validateEmails(this.email.getText(), this.emailConfirmInput.getText(),
+                this.emailFeedback);
       
         
         for(Text label:this.feedbackGroup){
@@ -176,6 +184,8 @@ public class NewUser1Controller implements Initializable {
                 break;
             }
         }
+        
+        
         //if the last iteration set the flag to true, we know all fields are valid
         if(validFields){
             
@@ -190,11 +200,14 @@ public class NewUser1Controller implements Initializable {
                 */
                this.emailFeedback.setText("Email already exists");
             }else{
+                System.out.println("errore found here");
             //now that all the fields are valid, we need to save all the values
             //into the newUser object instance created
             //create a new instance of the NewUser class
             newUser = new NewUser(this.firstName.getText(),
-            this.lastName.getText(),this.email.getText());
+            this.lastName.getText(),this.email.getText(),
+            this.proteinInput.getText(),this.fatInput.getText(),
+            this.carbInput.getText());
             
             
             //This is where we change the scene and pass the newUser objec to it
