@@ -153,7 +153,7 @@ public class Connectivity
                           columnName = "Email";
                           break;
                 
-            case "LoginID": query = "Select userName FROM userData";
+            case "userName": query = "Select userName FROM userData";
                             columnName = "userName";
                             break;
                             

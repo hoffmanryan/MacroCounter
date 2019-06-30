@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="346.0" prefWidth="474.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NewUserConfirmController">
+<AnchorPane id="AnchorPane" prefHeight="181.0" prefWidth="476.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="NewUserConfirmController">
    <children>
-      <Text layoutX="184.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Success!">
+      <Text fx:id="header" layoutX="184.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Success!">
          <font>
             <Font size="25.0" />
          </font>
       </Text>
-      <Button fx:id="enter" layoutX="208.0" layoutY="274.0" mnemonicParsing="false" onAction="#backToNewUserScene1" text="Enter" />
-      <Text layoutX="103.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You can now log in and start tracking your Macros!" />
+      <Text fx:id="feedback" layoutX="95.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You can now log in and start tracking your Macros!" />
+      <JFXButton fx:id="okButton" layoutX="208.0" layoutY="125.0" onAction="#backToNewUserScene1" />
    </children>
 </AnchorPane>

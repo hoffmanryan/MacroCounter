@@ -107,11 +107,11 @@ public class NewUser2Controller implements Initializable {
         InputValidator validator = new InputValidator();
         validator.validateLoginID(this.loginIDinput.getText(), this.loginIDinputConfirmation.getText(), this.loginIDInputFeedback);
         validator.validatePassword(this.passwordInput.getText(),this.passwordInputConfirmation.getText(), this.passwordInputFeedback);
-        String message ="";
+        String message="";
         String flag="";//this flag will tell the next screen if its G (good) or E (error)
         //loop through all the feedback text objects and make sure they are empty
         if(this.loginIDInputFeedback.getText().length() == 0 && this.passwordInputFeedback.getText().length() ==0){
-            
+
             this.newUser.setuserName(this.loginIDinput.getText());
             this.newUser.setPassword(this.passwordInput.getText());
             /*-------------------------To DO----------------------------
@@ -125,25 +125,28 @@ public class NewUser2Controller implements Initializable {
             -------------------------------------------------------------
             ------------------------------------------------------------*/
             /*
-            Here we are goin gto check a few things.  First make sure that the login
+            Here we are goin to check a few things.  First make sure that the login
             doesn't already exists in the database.  then add the user if it doesn't.  
             
             */
             //create an instance of the connectivity class
             Connectivity connection = new Connectivity();
             if(connection.valueExists(this.newUser.getuserName(), "userName")){
-                this.loginIDInputFeedback.setText("Login ID is already taken");
+                this.loginIDInputFeedback.setText("userName is already taken");
             }else{
-                //if the login id doesn't exist, proceed to adding the data to the database
-                if(this.newUser.addUserToDatabase()){
-                    message = this.newUser.getuserName() +" created successfully";
-                    flag = "G";
+                //if the username doesn't exist, proceed to adding the data to the database
+                this.newUser.addUserToDatabase();
+            
+            if(connection.valueExists(this.newUser.getuserName(), "userName")){
+            message = this.newUser.getuserName() +" created successfully";
+            flag = "G"; 
                     
-                    
-                }else{
-                    message = "Your account could not be created, you will be returned to the login screen";
-                    flag = "E";
+                }else { 
+            message = "Your account could not be created, you will be returned to the login screen";
+            flag = "E";
+           
                 }
+        
                 //This is code to open a new scene with data passed to it
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("NewUserConfirm.fxml"));

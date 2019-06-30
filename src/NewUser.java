@@ -35,7 +35,8 @@ public class NewUser {
         this("", "", "", "", "", "");
     }
 
-    public NewUser(String firstName, String lastName, String email,String proteinInput, String carbInput, String fatInput) {
+    public NewUser(String firstName, String lastName, String email,
+            String proteinInput, String carbInput, String fatInput) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -83,8 +84,8 @@ public class NewUser {
         boolean success = true;
         //get all the information for the database
         String first = this.getFirstName();
-        String last = this.getLastname();
-        String email = this.getEmail();
+        String last = this.getLastName();
+        String emailInfo = this.getEmail();
         String pwrd = this.getPassword();
         String uName = this.getuserName();
         String prot = this.getProtein();
@@ -103,7 +104,7 @@ public class NewUser {
            the information to the database
            */
            //if the user was not added, then return the false flag
-           if(!(tempConnection.addNewUser(first,last,email,pwrd,uName,prot,carb,fatt))){
+           if(!(tempConnection.addNewUser(first,last,emailInfo,pwrd,uName,prot,carb,fatt))){
                success = false;
            }
             
@@ -121,7 +122,7 @@ public class NewUser {
         return this.firstName;
     }
 
-    public String getLastname() {
+    public String getLastName() {
         return this.lastName;
     }
     

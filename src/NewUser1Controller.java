@@ -200,14 +200,13 @@ public class NewUser1Controller implements Initializable {
                 */
                this.emailFeedback.setText("Email already exists");
             }else{
-                System.out.println("errore found here");
             //now that all the fields are valid, we need to save all the values
             //into the newUser object instance created
             //create a new instance of the NewUser class
             newUser = new NewUser(this.firstName.getText(),
             this.lastName.getText(),this.email.getText(),
-            this.proteinInput.getText(),this.fatInput.getText(),
-            this.carbInput.getText());
+            this.proteinInput.getText(),this.carbInput.getText(),
+            this.fatInput.getText());
             
             
             //This is where we change the scene and pass the newUser objec to it

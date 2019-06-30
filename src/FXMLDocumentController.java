@@ -60,7 +60,16 @@ public class FXMLDocumentController implements Initializable {
         
     }
 
-  
+     public void forgotPassword(ActionEvent event) throws IOException {
+        Parent newpasswordParent = FXMLLoader.load(getClass().getResource("ForgotPassword.fxml"));
+        Scene forgotPasswordScene = new Scene(newpasswordParent);
+
+        //this is to get the stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(forgotPasswordScene);
+        window.show();
+    }
+
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

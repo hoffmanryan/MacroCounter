@@ -34,7 +34,7 @@ public class NewUserConfirmController implements Initializable {
     @FXML private Text header;
     @FXML private Text feedback;
     @FXML private JFXButton okButton;
-    private String loginID = "";
+    private String userName = "";
     
     /**
      * Initializes the controller class.

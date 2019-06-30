@@ -21,6 +21,6 @@
       <Button fx:id="clearButton" layoutX="244.0" layoutY="282.0" mnemonicParsing="false" onAction="#cancelClicked" text="Clear" />
       <Button fx:id="loginButton" layoutX="135.0" layoutY="282.0" mnemonicParsing="false" text="Login" />
       <Button fx:id="newUserButton" layoutX="65.0" layoutY="331.0" mnemonicParsing="false" onAction="#newUserScreen" text="Create New User" />
-      <Button fx:id="forgotPasswordButton" layoutX="244.0" layoutY="331.0" mnemonicParsing="false" text="Forgot Password" />
+      <Button fx:id="forgotPasswordButton" layoutX="244.0" layoutY="331.0" mnemonicParsing="false" onAction="#forgotPassword" text="Forgot Password" />
     </children>
 </AnchorPane>
