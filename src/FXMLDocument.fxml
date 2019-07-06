@@ -19,8 +19,9 @@
       <JFXTextField fx:id="userNameInput" layoutX="146.0" layoutY="137.0" promptText="Enter Username" />
       <JFXPasswordField fx:id="passwordInput" layoutX="144.0" layoutY="205.0" promptText="Enter Password" />
       <Button fx:id="clearButton" layoutX="244.0" layoutY="282.0" mnemonicParsing="false" onAction="#cancelClicked" text="Clear" />
-      <Button fx:id="loginButton" layoutX="135.0" layoutY="282.0" mnemonicParsing="false" text="Login" />
+      <Button fx:id="loginButton" layoutX="135.0" layoutY="282.0" mnemonicParsing="false" onAction="#UserScreen" text="Login" />
       <Button fx:id="newUserButton" layoutX="65.0" layoutY="331.0" mnemonicParsing="false" onAction="#newUserScreen" text="Create New User" />
       <Button fx:id="forgotPasswordButton" layoutX="244.0" layoutY="331.0" mnemonicParsing="false" onAction="#forgotPassword" text="Forgot Password" />
+      <Text fx:id="feedbackTextLabel" layoutX="147.0" layoutY="177.0" onDragDetected="#loginClicked" strokeType="OUTSIDE" strokeWidth="0.0" />
     </children>
 </AnchorPane>

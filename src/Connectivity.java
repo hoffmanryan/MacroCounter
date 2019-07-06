@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.scene.control.Alert;
@@ -157,7 +158,6 @@ public class Connectivity
                             columnName = "userName";
                             break;
                             
-            //add any other case you need here
             default:
                     break;
         }
@@ -218,19 +218,19 @@ public class Connectivity
         
     }
     
-    public boolean isEmployee(String userName){
-        boolean isEmp = false;
+    public boolean isUser(String userName){
+        boolean is = false;
         //get all the values in the userName colum of the User table
         if(this.ConnectDB()){
-            String query = "SELECT role FROM userData WHERE userName = '"
+            String query = "SELECT userName FROM userData WHERE userName = '"
                     + userName + "';";
             try{
                 Statement  st = this.dbConnection.createStatement();
                 ResultSet rst = st.executeQuery(query);
                 
                 while(rst.next()){
-                    if(rst.getString("role").equals("Employee")){
-                        isEmp = true;
+                    if(rst.getString("userName").equals(userName)){
+                        is = true;
                     }
                 }
                 
@@ -243,7 +243,7 @@ public class Connectivity
         }
         //iterate through and see if there is a match, set the flag accordingly
         
-        return isEmp;
+        return is;
         
     }
     
@@ -411,9 +411,9 @@ public class Connectivity
 //    }
     
     
-    //method to add a turnback to the database
-    public boolean addTurnbackToDB(int userID, int departmentID, 
-            int turnbackCategoryID, int turnbackTypeID, String turnbackText){
+    //method to add a foodentry to the database
+    public boolean addFoodToDB(int UserID, String Date,
+      String foodType,String foodWeight,String carbohydrates,String protein,String fat){
          
         boolean success = false;
         Statement statement ;
@@ -421,13 +421,10 @@ public class Connectivity
        
        
         if(this.ConnectDB()){
-            
-               
-            String query = "INSERT INTO TurnbackData (FK_userID, FK_departmentID, "
-                    + "FK_turnbackCategoryID, FK_turnbackTypeID, turnbackText)"
-                    + " VALUES (" + userID + ", " + departmentID + 
-                    ", " + turnbackCategoryID + ", " + turnbackTypeID + ", '"
-                    + turnbackText + "')";
+                 
+String query = "INSERT INTO `FoodLog` (`UserID`, `Date`,`foodType`,`foodWeight`,`carbohydrates`,`protein`,`fat`) VALUES ('"+UserID+"','"+Date+"','"+foodType+"','"+foodWeight+"','"+carbohydrates+"','"+protein+"','"+fat+"');";
+                                
+           
            
                     
             try{
@@ -479,68 +476,12 @@ public class Connectivity
    return userpassword;
     }
     
-    public int getTurnbackCategoryID(String category){
-        int turnbackCategoryID= 0;
-       
-        if(this.ConnectDB()){
-            String query = "SELECT PK_turnbackCategoryID FROM TurnbackCategory WHERE" 
-                + " turnbackCategoryName = '" + category + "';";
-            
-            try{
-                Statement  st = this.dbConnection.createStatement();
-                ResultSet rst = st.executeQuery(query);
-                
-                while(rst.next()){
-                    
-                      turnbackCategoryID = rst.getInt("PK_turnbackCategoryID");
-                    }
-                
-                
-                
-                
-            }catch(SQLException e1){
-                System.out.println(e1);
-            }
-        }else{
-            System.out.println("Could not connect to the database");
-        }
-      
-        return turnbackCategoryID;
-    }
-    
-    public int getTurnbackTypeID(String type){
-        int turnbackTypeID= 0;
-       
-        if(this.ConnectDB()){
-            String query = "SELECT PK_turnbackTypeID FROM TurnbackType WHERE" 
-                + " turnbackTypename = '" + type + "';";
-            
-            try{
-                Statement  st = this.dbConnection.createStatement();
-                ResultSet rst = st.executeQuery(query);
-                
-                while(rst.next()){
-                    
-                      turnbackTypeID = rst.getInt("PK_turnbackTypeID");
-                    }
-                
-                
-                
-                
-            }catch(SQLException e1){
-                System.out.println(e1);
-            }
-        }else{
-            System.out.println("Could not connect to the database");
-        }
-       
-        return turnbackTypeID;
-    }
+
         public int getUserID(String login){
         int userID= 0;
        
         if(this.ConnectDB()){
-            String query = "SELECT PK_userID FROM userData WHERE" 
+            String query = "SELECT UserID FROM userData WHERE" 
                 + " userName = '" + login + "';";
             
             try{
@@ -551,8 +492,8 @@ public class Connectivity
                 
                 while(rst.next()){
                     
-                      userID = rst.getInt("PK_userID");
-                      //System.out.println("REsult = " + userID);
+                      userID = rst.getInt("UserID");
+                      System.out.println("REsult = " + userID);
                     }
                 
                 
@@ -648,51 +589,6 @@ public class Connectivity
           alert.showAndWait();
        
  }
-     public boolean populateUserList(){
-        
-         //flag to let us know that everything went fine
-         boolean isGood = false;
-         //connect to the database
-         if(this.ConnectDB()){
-             //the connection is good
-             //get all the users that are not locked out
-             String query = "Select userName FROM userData WHERE locked=0";
-             
-             try{
-                 Statement st = this.dbConnection.createStatement();
-                 ResultSet rst = st.executeQuery(query);
-
-                 //iterate through the rst set and add all the usernames to the arraylist
-                 while(rst.next()){
-                     this.userNames.add(rst.getString("userName"));
-                 }
-                 
-                 //if it gets this far, it means we got everything we are looking for
-                 //flag to know that we can send return the arrayList
-                 if(userNames.size()>0){
-                     isGood = true;
-                 }
-             }catch(SQLException e){
-                 isGood=false;
-             }finally{
-                 //close everything out
-                 try{
-                     this.dbConnection.close();
-                     this.connectionEstablished = false;
-                 }catch(SQLException err){
-                     System.out.println(err);
-                 }
-             }
-             
-         }else{
-             //the connection failed
-             isGood=false;
-         }
-         
-         return isGood;
-         
-     }
-     
      public String[] getUserInformation(String userName){
          String[] infoArray = new String[5];
          if(this.ConnectDB()){
@@ -782,56 +678,7 @@ public class Connectivity
         
         return isLocked;
      }
-     
-     public boolean populateUsersByDepartment(String department){
-         boolean listSet = false;
-         this.departmentUsers = new ArrayList<String>();
-         //establish a connection
-         if(this.ConnectDB()){
-             String query = String.format("SELECT userName FROM User WHERE department=\'%s\' AND locked =0",department);
-             //run the query
-             try{
-                 Statement deptUsers = this.dbConnection.createStatement();
-                 //execute the statement
-                 boolean userRst = deptUsers.execute(query);
-                 
-                 
-                 if(userRst){
-                     ResultSet rst = deptUsers.getResultSet();
-                     //iterate through the Result set obj
-                     while(rst.next()){
-                         this.departmentUsers.add(rst.getString("userName"));
-                     }
-                     
-                     //check that the Arraylist is populated 
-                     if(this.departmentUsers.size()>0){
-                         listSet = true;
-                     }else{
-                         listSet = false;
-                     }
-                     
-                 }else{
-                     System.out.println("There was a problem retrieving the users from the database");
-                 }
-             }catch(SQLException e){
-                 System.out.println(e);
-             }finally{
-                 try{
-                     this.dbConnection.close();
-                     this.connectionEstablished = false;
-                 }catch(SQLException e2){
-                     System.out.println(e2);
-                 }
-             }
-         }
-         return listSet;
-         
-     }
-     //this will return the list that was set by the populateUsersByDepartment method
-     public ArrayList<String> getDepartmentUsers(){
-         return this.departmentUsers;
-     }
-     
+    
      public boolean isLocked(String user){
          //connect to the database
          boolean isLocked=false;
