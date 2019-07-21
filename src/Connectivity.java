@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextArea;
 
 /**
 *  @Course: SDEV 250 ~ Java Programming I
@@ -413,7 +414,7 @@ public class Connectivity
     
     //method to add a foodentry to the database
     public boolean addFoodToDB(int UserID, String Date,
-      String foodType,String foodWeight,String carbohydrates,String protein,String fat){
+      String foodType,String foodWeight,int carbohydrates,int protein,int fat){
          
         boolean success = false;
         Statement statement ;
@@ -493,7 +494,7 @@ String query = "INSERT INTO `FoodLog` (`UserID`, `Date`,`foodType`,`foodWeight`,
                 while(rst.next()){
                     
                       userID = rst.getInt("UserID");
-                      System.out.println("REsult = " + userID);
+                      System.out.println("Result = " + userID);
                     }
                 
                 
@@ -508,69 +509,7 @@ String query = "INSERT INTO `FoodLog` (`UserID`, `Date`,`foodType`,`foodWeight`,
        //System.out.println("User ID:" + userID);
         return userID;
     }
-        
-    public String getDepartmentName(String login){
-        String departmentName= "";
-        
-       
-        if(this.ConnectDB()){
-            String queryName = "SELECT department FROM userData WHERE" 
-                + " userName = '" + login + "';";
-            
-                    
-            try{
-                Statement  st = this.dbConnection.createStatement();
-                ResultSet rst = st.executeQuery(queryName);
-                
-                while(rst.next()){
-                    
-                      departmentName = rst.getString("department");
-                    }
-                
-            }catch(SQLException e1){
-                System.out.println(e1);
-            }           
-            
-        }else{
-            System.out.println("Could not connect to the database");
-        }
-       
-       
-        return departmentName;
-    }  
-    
-        public int getDepartmentID(String departmentName){
-        
-        int departmentID = 0;
-       
-        if(this.ConnectDB()){
-            
-            String queryID = "SELECT PK_departmentID FROM Department WHERE" 
-                    + " departmentName = '" + departmentName + "';";
-                    
-            
-            try{
-                
-                Statement  st = this.dbConnection.createStatement();
-              
-                ResultSet rst = st.executeQuery(queryID);
-                
-                while(rst.next()){
-                        
-                      departmentID = rst.getInt("PK_departmentID");
-                    }
-                
-            }catch(SQLException e1){
-                System.out.println(e1);
-            }
-        }else{
-            System.out.println("Could not connect to the database");
-        }
-//       System.out.println(departmentName);
-//       System.out.println(departmentID);
-        return departmentID;
-    }
-        
+   
          //alert message for email not in DB
      public void alertInvalidEmail(){
           Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -661,7 +600,7 @@ String query = "INSERT INTO `FoodLog` (`UserID`, `Date`,`foodType`,`foodWeight`,
              int lockResult = lockSt.executeUpdate(query);
              
              if(lockResult ==1){
-                 System.out.println("User "+ userName+" was locked out");
+                 System.out.println("User "+ userName +" was locked out");
                  isLocked = true;
              }
          }catch(SQLException e){
@@ -720,6 +659,36 @@ String query = "INSERT INTO `FoodLog` (`UserID`, `Date`,`foodType`,`foodWeight`,
          }
          
          return isLocked;
+     }
+     
+     public String[] updateDiary(int userName, String startDate, String endDate){
+         String[] infoArray = new String[100];
+         if(this.ConnectDB()){
+             //query selects all user information except for the password
+             String query = "SELECT foodType, carbohydrates, protein, fat FROM FoodLog WHERE UserID = '" + userName + "' AND `Date` "
+                     +"BETWEEN '" + startDate + "' and '" + endDate + "'";
+             try{
+                 Statement st = this.dbConnection.createStatement();
+                 ResultSet r = st.executeQuery(query);
+                 
+                 //get the information out of the database
+                 while(r.next()){
+                     for(int i = 1;i<=100;i++){
+                         infoArray[i-1]= r.getString(i);
+                     }}
+             }catch(SQLException e){
+                 System.out.println(e);
+             }finally{
+                 try{
+                     this.dbConnection.close();
+                     this.connectionEstablished=false;
+                 }catch(SQLException event){
+                     System.out.println("There was an issue closing things");
+                 }
+             }
+             
+         }
+         return infoArray;
      }
 
 }  //End Subclass Connectivity

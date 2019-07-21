@@ -20,9 +20,10 @@
       <TextField fx:id="foodProt" layoutX="69.0" layoutY="174.0" promptText="Enter Protein" />
       <TextField fx:id="foodCarbs" layoutX="69.0" layoutY="253.0" promptText="Enter Carbs" />
       <TextField fx:id="foodFat" layoutX="339.0" layoutY="253.0" promptText="Enter Fat" />
-      <Button fx:id="addEntry" layoutX="125.0" layoutY="337.0" mnemonicParsing="false" onAction="#submitClicked" text="Add Entry" />
-      <Button fx:id="clearButton" layoutX="337.0" layoutY="337.0" mnemonicParsing="false" onAction="#clearButtonClicked" text="Clear" />
-      <Button fx:id="returnToLoginButton" layoutX="415.0" layoutY="337.0" mnemonicParsing="false" onAction="#returnToLogin" text="Exit" />
-      <Button layoutX="221.0" layoutY="337.0" mnemonicParsing="false" text="Remove Entry" />
+      <Button fx:id="addEntry" layoutX="97.0" layoutY="337.0" mnemonicParsing="false" onAction="#submitClicked" text="Add Entry" />
+      <Button fx:id="clearButton" layoutX="415.0" layoutY="337.0" mnemonicParsing="false" onAction="#clearButtonClicked" text="Clear" />
+      <Button fx:id="returnToLoginButton" layoutX="492.0" layoutY="337.0" mnemonicParsing="false" onAction="#returnToLogin" text="Exit" />
+      <Button layoutX="193.0" layoutY="337.0" mnemonicParsing="false" text="Remove Entry" />
+      <Button fx:id="viewDiary" layoutX="316.0" layoutY="337.0" mnemonicParsing="false" onAction="#diaryClicked" text="View DIary" />
    </children>
 </AnchorPane>

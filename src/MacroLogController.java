@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-import com.jfoenix.controls.JFXComboBox;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -47,7 +46,7 @@ public class MacroLogController implements Initializable {
     private TextField foodFat;
     @FXML 
     private DatePicker dateEntry;
-    private String loginID = "";
+    private String loginID;
 
     /**
      * Initializes the controller class.
@@ -84,11 +83,14 @@ public class MacroLogController implements Initializable {
             String foodType = this.foodItem.getText();
             String foodWeight = this.foodWeigh.getText();
             String carbohydrates = this.foodCarbs.getText();
+            int carbs = Integer.parseInt(carbohydrates);
             String protein = this.foodProt.getText();
+            int pro = Integer.parseInt(protein);
             String fat = this.foodFat.getText();
+            int fatt = Integer.parseInt(fat);
 
             if (connection.addFoodToDB(UserID, Date,
-                    foodType, foodWeight, carbohydrates, protein, fat)) {
+                    foodType, foodWeight, carbs, pro, fatt)) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Food log Successful");
                 alert.setHeaderText("FOODLOG Submitted");
@@ -100,13 +102,15 @@ public class MacroLogController implements Initializable {
 
                 alert.showAndWait();
             }
-                 Parent Parent = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-                 Scene Scene = new Scene(Parent);
+                    
+        //go through all the fields and clear them
+        //clear the textarea
+        this.foodItem.clear();
+        this.foodWeigh.clear();
+        this.foodProt.clear();
+        this.foodCarbs.clear();
+        this.dateEntry.setValue(null);
 
-                 //this is to get the stage information
-                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    window.setScene(Scene);
-                    window.show();
         }
 
     }
@@ -139,6 +143,24 @@ public class MacroLogController implements Initializable {
 
         return isEmpty;
     }
+     //goto to diary
+    public void diaryClicked(ActionEvent event) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("MacroDiary.fxml"));
+        Parent macroLogParent = loader.load();
+        
+        Scene newMacroDiaryScene = new Scene(macroLogParent);
+        
+        MacroDiaryController controller = loader.getController();
+        controller.initData(this.loginID);
+
+        //this is to ge the stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(newMacroDiaryScene);
+        window.show();
+    }
+    
      //returns to login
     public void returnToLogin(ActionEvent event) throws IOException {
         Parent Parent = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
@@ -152,7 +174,6 @@ public class MacroLogController implements Initializable {
     
     public void clearButtonClicked() {
         //go through all the fields and clear them
-        //clear the textarea
         this.foodItem.clear();
         this.foodWeigh.clear();
         this.foodProt.clear();
