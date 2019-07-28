@@ -109,6 +109,7 @@ public class MacroLogController implements Initializable {
         this.foodWeigh.clear();
         this.foodProt.clear();
         this.foodCarbs.clear();
+        this.foodFat.clear();
         this.dateEntry.setValue(null);
 
         }
@@ -178,6 +179,7 @@ public class MacroLogController implements Initializable {
         this.foodWeigh.clear();
         this.foodProt.clear();
         this.foodCarbs.clear();
+        this.foodFat.clear();
         this.dateEntry.setValue(null);
 
     }
