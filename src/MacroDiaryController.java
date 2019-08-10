@@ -70,7 +70,7 @@ public class MacroDiaryController implements Initializable {
          "5UPXYpEPHW"
       );
           String stDate = null;
-          String[] infoArray = new String[25];
+          String[] infoArray = new String[24];
 
         //build an entry object out of the controllers
         Connectivity connection = new Connectivity();
@@ -99,24 +99,24 @@ public class MacroDiaryController implements Initializable {
                  
                  //get the information out of the database
                  while(r.next()){
-                     for(int i = 1;i<=25;i++){
-                         infoArray[i-1]= r.getString(i);
+                     for(int i = 1;i<=24;i++){
+                         infoArray[i-1] = r.getString(i);
                      }}
+                
              }catch(SQLException e){
                  System.out.println(e);
              }
              }
+        //print String[] to textarea
              for(int counter = 0 ; counter < infoArray.length; counter++)
              {
              for(String a : infoArray){
                      areaDiary.appendText(a + " \t");
                      counter++;
-                     if(counter>=4){
+                     if(counter==4){
                      areaDiary.appendText("\n");
+                     counter = 0;
                      }
-//                     if(a == null){
-//                     areaDiary.appendText("");
-//                     }
                  }
     }}
     
